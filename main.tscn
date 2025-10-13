@@ -1,0 +1,131 @@
+[gd_scene load_steps=11 format=3 uid="uid://5r6ynxknagc2"]
+
+[ext_resource type="Texture2D" uid="uid://xxpkhh3iv1r5" path="res://icon.svg" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://ct0svnnl7tc8h" path="res://ApplyForce.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://cvsm63g1t0vp0" path="res://CopyPoligon2D.gd" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://42kmslmfwb4k" path="res://FollowThePath.gd" id="4_1bvp3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ig7tw"]
+size = Vector2(128.82, 129.0675)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0xm2m"]
+radius = 16.59
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
+size = Vector2(32, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
+size = Vector2(64, 64)
+
+[sub_resource type="Gradient" id="Gradient_1bvp3"]
+
+[sub_resource type="Curve2D" id="Curve2D_h2yge"]
+bake_interval = 0.01
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -45, -17, 0, 0, 0, 0, 31, 47, 0, 0, 0, 0, 68, 16, 34.232674, 36.484306, -34.232674, -36.484306, 18.608475, 4.852295, 0, 0, 0, 0, 50, -72, 0, 0, 0, 0, -8.012329, -52.451096, 0, 0, 0, 0, -45.10667, -17.87593, 0, 0, 0, 0, -45, -17)
+}
+point_count = 8
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-6, 11)
+rotation = 0.25830874
+
+[node name="Icon" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(10, 87)
+texture = ExtResource("1_ig7tw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(10.41, 86.46625)
+shape = SubResource("RectangleShape2D_ig7tw")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+gravity_scale = 0.174
+constant_force = Vector2(0.105, 0)
+
+[node name="Icon" type="Sprite2D" parent="RigidBody2D"]
+modulate = Color(0.61000407, 0.60532594, 0.0954689, 1)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_ig7tw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_0xm2m")
+
+[node name="Stick" type="RigidBody2D" parent="."]
+position = Vector2(-41, -47)
+gravity_scale = 0.174
+constant_force = Vector2(0.105, 0)
+
+[node name="Icon" type="Sprite2D" parent="Stick"]
+modulate = Color(0.61000407, 0.60532594, 0.0954689, 1)
+scale = Vector2(0.25, 0.75)
+texture = ExtResource("1_ig7tw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stick"]
+shape = SubResource("RectangleShape2D_1bvp3")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(111, 34)
+script = ExtResource("2_0xm2m")
+
+[node name="Icon" type="Sprite2D" parent="Area2D"]
+modulate = Color(0.86571836, 0, 0.4347283, 0.5764706)
+position = Vector2(-1, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_ig7tw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1, 1)
+shape = SubResource("RectangleShape2D_0xm2m")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(66, -223)
+script = ExtResource("3_h2yge")
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D2"]
+position = Vector2(8, 22)
+scale = Vector2(2.75, 2.75)
+color = Color(1, 1, 0.18039216, 1)
+polygon = PackedVector2Array(-13, -5, 0, -28, 13, -4, 42, 3, 17, 15, 22, 42, 0, 19, -16, 43, -14, 12, -42, 4)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D2"]
+position = Vector2(8, 22)
+scale = Vector2(2.75, 2.75)
+polygon = PackedVector2Array(-13, -5, 0, -28, 13, -4, 42, 3, 17, 15, 22, 42, 0, 19, -16, 43, -14, 12, -42, 4)
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(232, -7)
+script = ExtResource("4_1bvp3")
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D3"]
+
+[node name="Line2D" type="Line2D" parent="StaticBody2D3"]
+default_color = Color(0.8682032, 8.95232e-06, 0.5739684, 1)
+gradient = SubResource("Gradient_1bvp3")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D3"]
+
+[node name="Path2D" type="Path2D" parent="StaticBody2D3"]
+position = Vector2(-27.999977, 73)
+rotation = -1.5676223
+scale = Vector2(1.3982301, 1.2195121)
+curve = SubResource("Curve2D_h2yge")
+
+[node name="GrooveJoint2D" type="GrooveJoint2D" parent="."]
+position = Vector2(110, -184)
+rotation = 0.584044
+node_a = NodePath("../StaticBody2D3")
+node_b = NodePath("../RigidBody2D")
+
+[node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="."]
+position = Vector2(110, -184)
+rotation = 0.584044
+node_a = NodePath("../StaticBody2D2")
+node_b = NodePath("../RigidBody2D")
+length = 17.0
+damping = 0.3
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
